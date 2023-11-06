@@ -23,13 +23,29 @@ class LinkedList {
   /** push(val): add new value to end of list. */
 
   push(val) {
+    let newNode = new Node(val);
 
+    if (this.head === null) this.head = newNode;
+
+    if (this.tail !== null) this.tail.next = newNode;
+
+    this.length += 1;
+
+    this.tail = newNode;
   }
 
   /** unshift(val): add new value to start of list. */
 
   unshift(val) {
+    let newNode = new Node(val);
 
+    if (this.head === null) this.tail = newNode;
+
+    if (this.head !== null) newNode.next = this.head;
+
+    this.length += 1;
+
+    this.head = newNode;
   }
 
   /** pop(): return & remove last item. */
@@ -71,7 +87,7 @@ class LinkedList {
   /** average(): return an average of all values in the list */
 
   average() {
-    
+
   }
 }
 
