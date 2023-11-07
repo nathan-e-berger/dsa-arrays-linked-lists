@@ -51,38 +51,72 @@ class LinkedList {
   /** pop(): return & remove last item. */
 
   pop() {
-    if(this.head === null) return null;
+    if(this.length === 0) return null;
 
-    if(this.head === this.tail){
-      let returnNode = this.head;
+    if(this.length === 1) {
+      let currentHead = this.head;
       this.head = null;
       this.tail = null;
       this.length -= 1;
-      return returnNode.val;
-    }
+      return currentHead.val;
+    };
 
-    let targetNode = this.tail;
+    let currentTail = this.tail;
     let currentNode = this.head;
 
     while(currentNode.next !== this.tail){
       currentNode = currentNode.next;
     }
+
     currentNode.next = null;
     this.tail = currentNode;
     this.length -= 1;
-    return targetNode.val;
+    return currentTail.val;
   }
 
   /** shift(): return & remove first item. */
 
   shift() {
+    // guard against empty list + one item 
+      // empty -> throw error 
+      // single -> set both head + tail to null
+    if(this.length === 0) throw new Error("THATS ILLEGAL");
 
+    if(this.length === 1){
+      const currentValue = this.head.val;
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return currentValue;
+    }
+
+    // capture current head, make current head : next to this.head
+    const currentHead = this.head.val;
+    this.head = this.head.next;
+    this.length--;
+
+    // return current head
+    return currentHead;
   }
 
   /** getAt(idx): get val at idx. */
 
   getAt(idx) {
+    // counter value init to 0
+    // while loop ending condition : counter value < idx
+    // return currentNode value
+    if((idx < 0) || (idx >= this.length)) throw new Error("THATS OUT OF RANGE");
+    if(this.length === 0) throw new Error("THATS ILLEGAL");
 
+    let counter = idx;
+    let currentNode = this.head;
+
+    while(counter > 0){
+      currentNode = currentNode.next
+      counter--;
+    }
+
+    return currentNode.val;
   }
 
   /** setAt(idx, val): set val at idx to val */
