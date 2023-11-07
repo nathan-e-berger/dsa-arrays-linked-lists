@@ -51,9 +51,9 @@ class LinkedList {
   /** pop(): return & remove last item. */
 
   pop() {
-    if(this.length === 0) return null;
+    if (this.length === 0) return null;
 
-    if(this.length === 1) {
+    if (this.length === 1) {
       let currentHead = this.head;
       this.head = null;
       this.tail = null;
@@ -64,7 +64,7 @@ class LinkedList {
     let currentTail = this.tail;
     let currentNode = this.head;
 
-    while(currentNode.next !== this.tail){
+    while (currentNode.next !== this.tail) {
       currentNode = currentNode.next;
     }
 
@@ -77,12 +77,12 @@ class LinkedList {
   /** shift(): return & remove first item. */
 
   shift() {
-    // guard against empty list + one item 
-      // empty -> throw error 
-      // single -> set both head + tail to null
-    if(this.length === 0) throw new Error("THATS ILLEGAL");
+    // guard against empty list + one item
+    // empty -> throw error
+    // single -> set both head + tail to null
+    if (this.length === 0) throw new Error("THATS ILLEGAL");
 
-    if(this.length === 1){
+    if (this.length === 1) {
       const currentValue = this.head.val;
       this.head = null;
       this.tail = null;
@@ -105,14 +105,14 @@ class LinkedList {
     // counter value init to 0
     // while loop ending condition : counter value < idx
     // return currentNode value
-    if((idx < 0) || (idx >= this.length)) throw new Error("THATS OUT OF RANGE");
-    if(this.length === 0) throw new Error("THATS ILLEGAL");
+    if ((idx < 0) || (idx >= this.length)) throw new Error("THATS OUT OF RANGE");
+    if (this.length === 0) throw new Error("THATS ILLEGAL");
 
     let counter = idx;
     let currentNode = this.head;
 
-    while(counter > 0){
-      currentNode = currentNode.next
+    while (counter > 0) {
+      currentNode = currentNode.next;
       counter--;
     }
 
@@ -122,13 +122,61 @@ class LinkedList {
   /** setAt(idx, val): set val at idx to val */
 
   setAt(idx, val) {
+    // check if idx is out of range
+    if ((idx < 0) || (idx >= this.length)) throw new Error("THATS OUT OF RANGE");
 
+    // while loop starting at 0, set newval & next
+    let counter = 0;
+    let currentNode = this.head;
+
+    while (counter < idx) {
+      currentNode = currentNode.next;
+      counter++;
+    }
+    currentNode.val = val;
+    return;
   }
 
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
+    // check if idx is out of range
 
+
+    if (idx < 0) {
+
+      let newNode = new Node(val);
+      let currentNode = this.head;
+      newNode.next = currentNode;
+      this.head = newNode;
+      this.length++;
+      return;
+    }
+
+    // if ((idx < 0) || (idx >= this.length)) throw new Error("THATS OUT OF RANGE");
+
+    let newNode = new Node(val);
+
+    let counter = 0;
+    let currentNode = this.head;
+
+    // loop start at 0
+    // update next of idx - 1
+    while (counter < idx) {
+      console.log("idx", idx);
+      console.log("length", this.length);
+
+      if (counter === idx - 1) {
+        newNode.next = currentNode.next;
+        currentNode.next = newNode;
+      }
+      currentNode = currentNode.next;
+      counter++;
+    }
+    // set our node at idx and update length
+    currentNode.val = val;
+    this.length += 1;
+    return;
   }
 
   /** removeAt(idx): return & remove item at idx, */
